@@ -25,9 +25,9 @@ Kloon van spotify
 
 ## Technologieen
 
-PHP
-Mariadb
-(Mindsdb od?)
-Last.FM
-MP3
-(MP4?)
+- PHP
+- Mariadb
+- (Mindsdb od?)
+- Last.FM
+- MP3
+- (MP4?)
