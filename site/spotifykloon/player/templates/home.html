@@ -1,1 +1,18 @@
+{% load static %}
 <h1>hallo</h1>
+<ul>
+{% for song in music %}
+<li>
+    {{ song.musicItem.title }}
+    <ol style="list-style-type: square; padding-bottom: 0;">
+        {% for item in song.tracks %}
+            <li>
+                <a href="{{ item.file.url }}"> {# TODO: make sure this plays in the background #}
+                    {{ item.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ol>
+</li>
+{% endfor %}
+</ul>
