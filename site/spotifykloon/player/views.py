@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from .models import Music, MusicTrack
+from .models import Music, MusicTrack, Artist
 from dataclasses import dataclass
 
 
@@ -7,6 +7,7 @@ from dataclasses import dataclass
 class MusicItem:
     musicItem: Music
     tracks: list[MusicTrack]
+    artist: Artist
 
 
 class HomePageView(TemplateView):
@@ -18,6 +19,7 @@ class HomePageView(TemplateView):
         result = []
         for item in music:
             tracks = MusicTrack.objects.filter(music=item)
-            result.append(MusicItem(item, tracks))
+            artist = Artist.objects.filter(id=item.artist_id).first()
+            result.append(MusicItem(item, tracks, artist))
         context["music"] = result
         return context
