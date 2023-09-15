@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello!</title>
+    <meta name="description" content="description" />
+    <meta name="author" content="author" />
+    <meta name="keywords" content="keywords" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
+    <base href="/" />
+  </head>
+  <body>
+
+    <div id="player">
+      
+    </div>
+
+    <div id="page"></div>
+
+    <script
+      src="//code.jquery.com/jquery-3.6.0.min.js"
+      type="text/javascript"
+    ></script>
+    <script>
+
+      var current_music = null;
+
+      var audiotypes={
+        "mp3": "audio/mpeg",
+        "mp4": "audio/mp4",
+        "ogg": "audio/ogg",
+        "wav": "audio/wav"
+    }
+
+    function ss_soundbits(sound){
+        var audio_element = document.createElement('audio')
+        if (audio_element.canPlayType){
+            for (var i=0; i<arguments.length; i++){
+                var source_element = document.createElement('source')
+                source_element.setAttribute('src', arguments[i])
+                if (arguments[i].match(/\.(\w+)$/i))
+                    source_element.setAttribute('type', audiotypes[RegExp.$1])
+                audio_element.appendChild(source_element)
+            }
+            audio_element.load()
+            audio_element.playclip=function(){
+                audio_element.pause()
+                audio_element.currentTime=0
+                audio_element.play()
+            }
+            return audio_element
+        }
+    }
+
+      function show_home_page() {
+        $.get("/pages/main", function (data) {
+          $("#page").html(data);
+        });
+      }
+
+      function audio(link) {
+        current_music = ss_soundbits(link);
+        current_music.playclip();
+      }
+
+      show_home_page();
+    </script>
+  </body>
+</html>

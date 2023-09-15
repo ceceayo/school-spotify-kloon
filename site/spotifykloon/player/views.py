@@ -23,3 +23,6 @@ class HomePageView(TemplateView):
             result.append(MusicItem(item, tracks, artist))
         context["music"] = result
         return context
+
+class SinglePageView(TemplateView):
+    template_name = "main.html"
