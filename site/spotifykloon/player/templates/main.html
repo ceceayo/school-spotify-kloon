@@ -60,6 +60,9 @@
       }
 
       function audio(link) {
+        if (current_music) {
+          current_music.pause();
+        }
         current_music = ss_soundbits(link);
         current_music.playclip();
       }
