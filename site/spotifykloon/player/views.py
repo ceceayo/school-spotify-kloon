@@ -1,6 +1,8 @@
-from django.views.generic import TemplateView
-from .models import Music, MusicTrack, Artist
 from dataclasses import dataclass
+
+from django.views.generic import TemplateView
+
+from .models import Artist, Music, MusicTrack
 
 
 @dataclass
