@@ -2,4 +2,7 @@ from django.shortcuts import render
 # Create your views here.
 
 def login_page_view(request):
-    return render(request, template_name="login.html")
+    if request.method == "GET":
+        return render(request, template_name="login.html")
+    else:
+        raise NotImplementedError("CANT DO THAT YET SORRY OwO")
