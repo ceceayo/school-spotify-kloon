@@ -1,8 +1,5 @@
-from django.http import HttpResponse
-import datetime
+from django.shortcuts import render
 # Create your views here.
 
 def login_page_view(request):
-    now = datetime.datetime.now()
-    html = "<html><body>It is now %s.</body></html>" % now
-    return HttpResponse(html)
+    return render(request, template_name="login.html")
