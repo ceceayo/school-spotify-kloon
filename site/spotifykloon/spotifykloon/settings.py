@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['https://8000-ceceayo-schoolspotifykl-05gy3efvnoe.ws-eu104.gitp
 
 INSTALLED_APPS = [
     'player',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
