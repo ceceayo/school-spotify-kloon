@@ -27,7 +27,3 @@ class HomePageView(LoginRequiredMixin, TemplateView):
 
 class SinglePageView(LoginRequiredMixin, TemplateView):
     template_name = "main.html"
-    
-
-class NoAuthenticationView(TemplateView):
-    template_name = "login.html"
