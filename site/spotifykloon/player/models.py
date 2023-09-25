@@ -26,3 +26,11 @@ class MusicTrack(models.Model):
     
     def __str__(self):
         return f"{self.title} for {self.music.title} by {self.music.artist.name}"
+
+
+class Album(models.Model):
+    title = models.CharField(max_length=100, primary_key=True)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.title} by {self.artist.name}"
