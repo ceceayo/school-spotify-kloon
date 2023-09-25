@@ -6,9 +6,9 @@
     <ol style="list-style-type: square; padding-bottom: 0;">
         {% for item in song.tracks %}
             <li>
-                <a href="{{ item.file.url }}"> {# TODO: make sure this plays in the background #}
+                <button onclick="audio('{{ item.file.url }}', '{{song.musicItem.artist.name}} - {{song.musicItem.title}} ({{ item.title }})')"> {# TODO: make sure this plays in the background #}
                     {{ item.title }}
-                </a>
+                </button>
             </li>
         {% endfor %}
     </ol>
