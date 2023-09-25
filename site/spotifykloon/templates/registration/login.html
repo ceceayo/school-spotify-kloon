@@ -5,18 +5,21 @@
         </style>
     </head>
     <body>
+        <center>
         <form action="." method="post">
-        <b>  <label style="font-family: Verdana,sans-serif;" for="username">Username</label> </b>
+        <b>  <label style="font-family: Verdana,sans-serif; color:azure; font-size:75px;" for="username">Username</label> </b>
             <br>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username" name="username" style="font-size:25px;">
             <br>
             <br>
-            <b> <label style="font-family: Verdana,sans-serif;" for="password">Password</label> </b>
+            <b> <label style="font-family: Verdana,sans-serif; color:azure; font-size:75px;" for="password">Password</label> </b>
             <br>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" style="font-size:25px;">
+            <br>
             <br>
             {% csrf_token %}
-            <input type="submit" value="Log in">
+            <input type="submit" value="Log in"style="font-size:50px;">
         </form>
+        </center>
     </body>
 </html>
