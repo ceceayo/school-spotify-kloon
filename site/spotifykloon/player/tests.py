@@ -1,5 +1,9 @@
+from django.contrib.auth import get_user_model
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.files import File
 from django.test import TestCase
+from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.common.by import By
 
 from .models import Artist, Album, Music, MusicTrack
 
@@ -43,3 +47,30 @@ class ModelsTest(TestCase):
         import os
 
         os.system("rm static/music/testing/*")
+
+
+class HomePageTest(StaticLiveServerTestCase):
+    fixtures = []
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = WebDriver()
+        cls.selenium.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+    def setUp(self):
+        get_user_model().objects.create_user("myuser", "", "secret")
+
+    def test_login(self):
+        self.selenium.get(f"{self.live_server_url}/accounts/login")
+        username_input = self.selenium.find_element(By.NAME, "username")
+        username_input.send_keys("myuser")
+        password_input = self.selenium.find_element(By.NAME, "password")
+        password_input.send_keys("secret")
+        self.selenium.find_element(By.CSS_SELECTOR, '[type="submit"]').click()
+        self.assertEqual(self.selenium.current_url, f"{self.live_server_url}/")
