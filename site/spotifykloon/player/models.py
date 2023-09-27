@@ -22,7 +22,7 @@ class Music(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.artist.name} - {self.title}"
+        return f"{self.album.artist.name if self.album else '?'} - {self.title}"
 
 
 class MusicTrack(models.Model):
