@@ -2,11 +2,11 @@
 <ul>
 {% for song in music %}
 <li>
-    {{ song.musicItem.title }} - {{ song.musicItem.artist.name }}
+    <b>{{ song.musicItem.title }}</b> - {{ song.musicItem.album.artist.name }} - {{ song.musicItem.album.title }}
     <ol style="list-style-type: square; padding-bottom: 0;">
         {% for item in song.tracks %}
             <li>
-                <button onclick="audio('{{ item.file.url }}', '{{song.musicItem.artist.name}} - {{song.musicItem.title}} ({{ item.title }})')"> {# TODO: make sure this plays in the background #}
+                <button onclick="audio('{{ item.file.url }}', '{{song.musicItem.artist.name}} - {{song.musicItem.title}} ({{ item.title }})')">
                     {{ item.title }}
                 </button>
             </li>
