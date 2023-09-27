@@ -10,7 +10,7 @@ class Artist(models.Model):
 
 # Create your models here.
 class Album(models.Model):
-    title = models.CharField(max_length=100, primary_key=True)
+    title = models.CharField(max_length=100)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
 
     def __str__(self):
