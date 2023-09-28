@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.views.generic import TemplateView
 
 from .models import Artist, Music, MusicTrack
@@ -8,7 +9,7 @@ from .models import Artist, Music, MusicTrack
 
 @dataclass
 class MusicItem:
-    musicItem: Music
+    music: Music
     tracks: list[MusicTrack]
     artist: Artist
 
