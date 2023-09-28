@@ -1,7 +1,9 @@
-from django.views.generic import TemplateView
-from .models import Music, MusicTrack, Artist
 from dataclasses import dataclass
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+
+from .models import Artist, Music, MusicTrack
 
 
 @dataclass
@@ -24,6 +26,7 @@ class HomePageView(LoginRequiredMixin, TemplateView):
             result.append(MusicItem(item, tracks, artist))
         context["music"] = result
         return context
+
 
 class SinglePageView(LoginRequiredMixin, TemplateView):
     template_name = "main.html"
