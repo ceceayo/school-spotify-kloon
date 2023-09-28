@@ -7,7 +7,7 @@ from .models import Artist, Music, MusicTrack
 
 @dataclass
 class MusicItem:
-    musicItem: Music
+    music: Music
     tracks: list[MusicTrack]
     artist: Artist
 
