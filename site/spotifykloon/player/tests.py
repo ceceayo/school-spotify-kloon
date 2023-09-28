@@ -5,13 +5,13 @@ from django.test import TestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 
-from .models import Artist, Album, Music, MusicTrack
-
+from .models import Album, Artist, Music, MusicTrack
 
 # Create your tests here.
 
 
 class ModelsTest(TestCase):
+
     def test_models(self):
         artist = Artist.objects.create(name="test")
         self.assertEqual(artist.name, "test")

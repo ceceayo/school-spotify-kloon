@@ -1,9 +1,10 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
 # Create your views here.
 from .forms import LoginForm
-from django.http import HttpResponseRedirect
 
-    
+
 def login_page_view(request):
     # if this is a POST request we need to process the form data
     if request.method == "POST":

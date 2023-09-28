@@ -12,9 +12,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="album",
             name="id",
-            field=models.BigIntegerField(
-                auto_created=True, default=0, primary_key=True, serialize=False
-            ),
+            field=models.BigIntegerField(auto_created=True,
+                                         default=0,
+                                         primary_key=True,
+                                         serialize=False),
             preserve_default=False,
         ),
         migrations.AlterField(
