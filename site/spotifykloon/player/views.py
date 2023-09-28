@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.views.generic import TemplateView
 
 from .models import Artist, Music, MusicTrack
