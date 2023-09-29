@@ -111,6 +111,10 @@ $.ajaxSetup({
           document.title = current_title;
           $("#player-where").text(new Date(current_music.currentTime * 1000).toISOString().slice(14, 19) + 
             " / " + new Date(current_music.duration * 1000).toISOString().slice(14, 19));
+            if (current_music.currentTime==current_music.duration && current_music.playing){
+              alert("muisc done");
+            }
+
         } else {
           console.log("nothing");
         }
