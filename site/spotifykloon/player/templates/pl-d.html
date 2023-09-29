@@ -1,0 +1,10 @@
+{{object}}
+<ol>
+  {% for i in items %}
+  <li>
+    <button onclick="audio('{{ i.version.file.url }}', '{{i.song.artist.name}} - {{i.song.title}} ({{ i.song.title }})', '{{i.song.music.pk}}', '{{i.song.music.artist.pk}}')">
+      {{i.song.title}} - {{i.song.artist.name}} ({{i.version.title}})
+    </button>
+  </li>
+  {%endfor%}
+</ol>

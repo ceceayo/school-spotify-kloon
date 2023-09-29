@@ -1,12 +1,14 @@
 from dataclasses import dataclass
+from typing import Any
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.query import QuerySet
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
 
-from .models import Artist, Music, MusicTrack, OpinionOnSong
+from .models import Artist, Music, MusicTrack, OpinionOnSong, Playlist, PlaylistItem
 
 
 @dataclass
@@ -29,6 +31,22 @@ class HomePageView(LoginRequiredMixin, TemplateView):
             result.append(MusicItem(item, tracks, artist))
         context["music"] = result
         return context
+    
+
+class MyPlaylistsView(ListView):
+    model = Playlist
+    template_name = "pl.html"
+    
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().filter(user=self.request.user)
+
+class PlaylistDetailView(DetailView):
+    model = Playlist
+    template_name = "pl-d.html"
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx['items'] = PlaylistItem.objects.filter(playlist=ctx['object']).order_by('place').all()
+        return ctx
 
 
 class SinglePageView(LoginRequiredMixin, TemplateView):
