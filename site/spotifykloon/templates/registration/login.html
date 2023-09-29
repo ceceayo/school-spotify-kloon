@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <style>
+            body {background-color: rgb(31, 31, 31);}
+
+            .submit{
+                font-size:50px;
+                background-color:#3884ff;
+                border:5px;
+                width:300px;
+                font-family:Verdana,sans-serif;
+                transition:0.5s;
+                box-shadow:0 10px #777;
+            }
+            .submit:hover{
+                font-size:50px;
+                background-color:#1d498f;
+                border:5px;
+                width:300px;
+                font-family:Verdana,sans-serif;
+                transition:0.5s;
+            }
+            .submit:active{
+                box-shadow:0 5px #555;
+                transform:translateY(4px);
+            }
+        </style>
+    </head>
+    <body>
+        <center>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        <form action="." method="post">
+        <b>  <label style="font-family: Verdana,sans-serif; color:#3884ff; font-size:50px;" for="username">Username</label> </b>
+            <br>
+            <input type="text" id="username" name="username" style="font-size:25px; width:300px;">
+            <br>
+            <br>
+            <b> <label style="font-family: Verdana,sans-serif; color:#3884ff; font-size:50px;" for="password">Password</label> </b>
+            <br>
+            <input type="password" id="password" name="password" style="font-size:25px; width:300px;">
+            <br>
+            <br>
+            {% csrf_token %}
+            <input type="submit" class="submit" value="Log in">
+        </form>
+        </center>
+    </body>
+</html>

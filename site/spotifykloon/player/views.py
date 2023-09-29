@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
 from .models import Artist, Music, MusicTrack
@@ -12,7 +13,7 @@ class MusicItem:
     artist: Artist
 
 
-class HomePageView(TemplateView):
+class HomePageView(LoginRequiredMixin, TemplateView):
     template_name = "home.html"
 
     def get_context_data(self, **kwargs):
@@ -27,5 +28,5 @@ class HomePageView(TemplateView):
         return context
 
 
-class SinglePageView(TemplateView):
+class SinglePageView(LoginRequiredMixin, TemplateView):
     template_name = "main.html"
