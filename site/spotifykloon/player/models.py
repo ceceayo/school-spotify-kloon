@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Artist(models.Model):
@@ -29,3 +30,10 @@ class MusicTrack(models.Model):
 
     def __str__(self):
         return f"{self.title} for {self.music.title} by {self.music.artist.name}"
+
+
+class OpinionOnSong(models.Model):
+    song = models.ForeignKey(Music, on_delete=models.CASCADE)
+    version = models.ForeignKey(
+        MusicTrack, on_delete=models.SET_NULL, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
