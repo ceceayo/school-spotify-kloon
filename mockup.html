@@ -8,17 +8,30 @@ body {
   background-attachment: fixed; 
   background-size: 100% 100%;
 }
+
+#bgVideo{
+ width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+
+  z-index: -1;
+
+}
 </style>
 
-
-<video autoplay muted loop id="">
-  <source src="path-to-your-video.mp4" type="video/mp4">
-</video>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
-<image src="verblogo.jpg" class="bottomleft"></image>
+  <video autoplay="true" loop="true" muted="true" id="bgVideo">
+    <source src="video.mp4" type="video/mp4">
+
+  </video>
+
+
+
+
+
 
 
 
@@ -81,15 +94,6 @@ li a {
 .link {
   background-color: #222; margin: 4px; margin-right: -6px; border-radius: 4px;
 }
-  
-.bottomleft {
-  position: absolute;
-  bottom: 8px;
-  left: 16px;
-  font-size: 18px;
-  z-index: 100;
-}
-
 
 }
 </style>
