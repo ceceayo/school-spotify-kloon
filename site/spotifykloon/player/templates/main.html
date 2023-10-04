@@ -16,7 +16,6 @@
       <span id="player-where"></span>
       <span id="controls">
         <button onclick="toggle_playing()">pause</button>
-        
       </span>
     </div>
 
@@ -36,6 +35,13 @@
         ogg: "audio/ogg",
         wav: "audio/wav",
       };
+
+      var next_song = [
+        [
+          "/static/music/Weit_weg.mp3",
+          "Rammstein - Seid bereit (This has nothing to do with Seid Bereit, but it is here...)",
+        ],
+      ];
 
       function ss_soundbits(sound) {
         var audio_element = document.createElement("audio");
@@ -75,23 +81,39 @@
         if (current_music) {
           $("#player-title").text(current_title);
           document.title = current_title;
-          $("#player-where").text(new Date(current_music.currentTime * 1000).toISOString().slice(14, 19) + 
-            " / " + new Date(current_music.duration * 1000).toISOString().slice(14, 19));
+          $("#player-where").text(
+            new Date(current_music.currentTime * 1000)
+              .toISOString()
+              .slice(14, 19) +
+              " / " +
+              new Date(current_music.duration * 1000)
+                .toISOString()
+                .slice(14, 19)
+          );
         } else {
           console.log("nothing");
         }
       }
       function toggle_playing() {
-        if (current_music){
-        if (current_music.paused) {
-          current_music.play();
-        } else {
-          current_music.pause();
+        if (current_music) {
+          if (current_music.paused) {
+            current_music.play();
+          } else {
+            current_music.pause();
+          }
         }
-      }}
+      }
       draw_controls();
       show_home_page();
       setInterval(draw_controls, 500);
+      function play_next() {
+        if (next_song.length == 0) {
+          alert("No Next Song 💀");
+        } else {
+          var temp = next_song.shift();
+          audio(temp[0], temp[1]);
+        }
+      }
     </script>
   </body>
 </html>
