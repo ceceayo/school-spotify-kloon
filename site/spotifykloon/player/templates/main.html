@@ -1,97 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello!</title>
-    <meta name="description" content="description" />
-    <meta name="author" content="author" />
-    <meta name="keywords" content="keywords" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
-    <base href="/" />
-  </head>
-  <body>
-    <div id="player">
-      <span id="player-title"></span>
-      <span id="player-where"></span>
-      <span id="controls">
-        <button onclick="toggle_playing()">pause</button>
-        
-      </span>
-    </div>
 
-    <div id="page"></div>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello!</title>
+  <meta name="description" content="description" />
+  <meta name="author" content="author" />
+  <meta name="keywords" content="keywords" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
+  <base href="/" />
+</head>
 
-    <script
-      src="//code.jquery.com/jquery-3.6.0.min.js"
-      type="text/javascript"
-    ></script>
-    <script>
-      var current_music = null;
-      var current_title = "";
+<body>
+  <div id="player">
+    <span id="player-title"></span>
+    <span id="player-where"></span>
+    <span id="controls">
+      <button onclick="toggle_playing()">pause</button>
 
-      var audiotypes = {
-        mp3: "audio/mpeg",
-        mp4: "audio/mp4",
-        ogg: "audio/ogg",
-        wav: "audio/wav",
-      };
+    </span>
+  </div>
 
-      function ss_soundbits(sound) {
-        var audio_element = document.createElement("audio");
-        if (audio_element.canPlayType) {
-          var source_element = document.createElement("source");
-          source_element.setAttribute("src", sound);
-          if (sound.match(/\.(\w+)$/i))
-            source_element.setAttribute("type", audiotypes[RegExp.$1]);
-          audio_element.appendChild(source_element);
+  <div id="page"></div>
 
-          audio_element.load();
-          audio_element.playclip = function () {
-            audio_element.pause();
-            audio_element.currentTime = 0;
-            audio_element.play();
-          };
-          return audio_element;
+  <script src="//code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
+  <script>
+    var current_music = null;
+    var current_title = "";
+    var music_ended = false;
+
+    var audiotypes = {
+      mp3: "audio/mpeg",
+      mp4: "audio/mp4",
+      ogg: "audio/ogg",
+      wav: "audio/wav",
+    };
+
+    function ss_soundbits(sound) {
+      var audio_element = document.createElement("audio");
+      if (audio_element.canPlayType) {
+        var source_element = document.createElement("source");
+        source_element.setAttribute("src", sound);
+        if (sound.match(/\.(\w+)$/i))
+          source_element.setAttribute("type", audiotypes[RegExp.$1]);
+        audio_element.appendChild(source_element);
+
+        audio_element.load();
+        audio_element.playclip = function () {
+          audio_element.pause();
+          audio_element.currentTime = 0;
+          audio_element.play();
+        };
+        return audio_element;
+      }
+    }
+
+    function show_home_page() {
+      $.get("/pages/main", function (data) {
+        $("#page").html(data);
+      });
+    }
+
+    function audio(link, title) {
+      music_ended = false;
+      if (current_music) {
+        current_music.pause();
+      }
+      current_music = ss_soundbits(link);
+      current_music.playclip();
+      current_title = title;
+      draw_controls();
+    }
+    function draw_controls() {
+      if (current_music) {
+        $("#player-title").text(current_title);
+        document.title = current_title;
+        $("#player-where").text(new Date(current_music.currentTime * 1000).toISOString().slice(14, 19) +
+          " / " + new Date(current_music.duration * 1000).toISOString().slice(14, 19));
+        if (current_music.currentTime == current_music.duration && (!music_ended)) {
+          alert("music done");
+          music_ended = true;
         }
-      }
 
-      function show_home_page() {
-        $.get("/pages/main", function (data) {
-          $("#page").html(data);
-        });
+      } else {
+        console.log("nothing");
       }
-
-      function audio(link, title) {
-        if (current_music) {
-          current_music.pause();
-        }
-        current_music = ss_soundbits(link);
-        current_music.playclip();
-        current_title = title;
-        draw_controls();
-      }
-      function draw_controls() {
-        if (current_music) {
-          $("#player-title").text(current_title);
-          document.title = current_title;
-          $("#player-where").text(new Date(current_music.currentTime * 1000).toISOString().slice(14, 19) + 
-            " / " + new Date(current_music.duration * 1000).toISOString().slice(14, 19));
-        } else {
-          console.log("nothing");
-        }
-      }
-      function toggle_playing() {
-        if (current_music){
+    }
+    function toggle_playing() {
+      if (current_music) {
         if (current_music.paused) {
           current_music.play();
         } else {
           current_music.pause();
         }
-      }}
-      draw_controls();
-      show_home_page();
-      setInterval(draw_controls, 500);
-    </script>
-  </body>
+      }
+    }
+    draw_controls();
+    show_home_page();
+    setInterval(draw_controls, 500);
+  </script>
+</body>
+
 </html>
