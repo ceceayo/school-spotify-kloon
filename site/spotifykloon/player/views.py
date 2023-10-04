@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
 from .models import Artist, Music, MusicTrack
+from django.contrib.auth.decorators import login_required
 
 
 @dataclass
@@ -30,3 +31,9 @@ class HomePageView(LoginRequiredMixin, TemplateView):
 
 class SinglePageView(LoginRequiredMixin, TemplateView):
     template_name = "main.html"
+
+
+@login_required
+def LikeOrDislikeView(request):
+    print(request)
+    pass
