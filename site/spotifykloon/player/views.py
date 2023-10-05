@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 
 from .models import Artist, Music, MusicTrack
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 
 
 @dataclass
@@ -34,6 +35,7 @@ class SinglePageView(LoginRequiredMixin, TemplateView):
 
 
 @login_required
+@require_http_methods(["POST"])
 def LikeOrDislikeView(request):
-    print(request)
+    print(request.POST)
     pass

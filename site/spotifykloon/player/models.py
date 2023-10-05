@@ -33,7 +33,13 @@ class MusicTrack(models.Model):
 
 
 class OpinionOnSong(models.Model):
+    OPINIONS = [
+        ("1", "Like",),
+        ("0", "NoOpinion",),
+        ("-1", "DisLike"),
+    ]
     song = models.ForeignKey(Music, on_delete=models.CASCADE)
     version = models.ForeignKey(
         MusicTrack, on_delete=models.SET_NULL, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    opinion = models.CharField(max_length=2, choices=OPINIONS)
