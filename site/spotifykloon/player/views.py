@@ -47,12 +47,15 @@ def LikeOrDislikeView(request):
     opinions = OpinionOnSong.objects.filter(
         user=request.user, song=request.POST["music"], artist=request.POST["artist"])
     print(len(opinions.all()))
-    assert request.POST['opinion'] in {"-1", "0", "1"}
     match(len(opinions.all())):
         case 0:
+            OpinionOnSong(user=request.user, artist=Artist.objects.get(pk=int(request.POST['artist'])), song=Music.objects.get(pk=int(request.POST['music'])), opinion="1" if (
+                request.POST['opinion'] == "true") else "-1").save()
             return HttpResponse("added")
         case 1:
-            opinions.all().update(opinion=request.POST['opinion'])
+            x = opinions.first()
+            x.opinion="1" if (request.POST['opinion'] == "true" and opinions.first().opinion in {"0", "-1"}) else "0" if (request.POST['opinion'] == "true" and opinions.first().opinion == "1") else "-1" if (request.POST['opinion'] == "false" and opinions.first().opinion in {"0", "1"}) else "0"
+            x.save()
             return HttpResponse("changed")
         case _:
             assert False
