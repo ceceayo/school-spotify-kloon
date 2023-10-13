@@ -1,0 +1,7 @@
+<ul>
+{% for object in object_list %}
+<li>
+<button onclick="show_pl({{object.pk}})">{{object.title}}</button>
+</li>
+{% endfor %}
+</ul>

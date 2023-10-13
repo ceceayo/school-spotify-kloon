@@ -1,12 +1,13 @@
 from dataclasses import dataclass
+from typing import Any
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
 
-from .models import Artist, Music, MusicTrack, OpinionOnSong
+from .models import Artist, Music, MusicTrack, OpinionOnSong, Playlist, PlaylistItem
 
 
 @dataclass
@@ -81,3 +82,23 @@ def LikeOrDislikeView(request):
             return HttpResponse("changed")
         case _:
             assert False
+
+
+class MyPlaylistsView(ListView):
+    model = Playlist
+    template_name = "playlist-list.html"
+
+    def get_queryset(self):
+        # Get the queryset however you usually would.  For example:
+        queryset = super().get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
+
+class PlaylistDetailView(DetailView):
+    model = Playlist
+    template_name = "playlist-info.html"
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx['songs'] = PlaylistItem.objects.filter(pl=ctx['object']).all()
+        return ctx

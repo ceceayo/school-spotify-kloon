@@ -23,6 +23,8 @@
 
     </span>
   </div>
+<button onclick="show_home_page()">Home</button>
+<button onclick="show_pl_page()">Playlists</button>
 
   <div id="page"></div>
 
@@ -116,8 +118,13 @@ $.ajaxSetup({
         $("#page").html(data);
       });
     }
-    function show_home_page() {
-      $.get("/pages/main", function (data) {
+    function show_pl_page() {
+      $.get("/pages/my-playlists", function (data) {
+        $("#page").html(data);
+      });
+    }
+    function show_pl(pk) {
+      $.get("/pages/pl/"+pk, function (data) {
         $("#page").html(data);
       });
     }

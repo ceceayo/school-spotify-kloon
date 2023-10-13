@@ -50,3 +50,11 @@ class OpinionOnSong(models.Model):
         Artist, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     opinion = models.CharField(max_length=2, choices=OPINIONS)
+
+class Playlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+
+class PlaylistItem(models.Model):
+    pl = models.ForeignKey(Playlist, on_delete=models.CASCADE)
+    version = models.ForeignKey(MusicTrack, on_delete=models.CASCADE)
