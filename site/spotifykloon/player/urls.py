@@ -1,6 +1,12 @@
 from django.urls import path
 
-from .views import HomePageView, LikeOrDislikeView, SinglePageView, MyPlaylistsView, PlaylistDetailView
+from .views import (
+    HomePageView,
+    LikeOrDislikeView,
+    MyPlaylistsView,
+    PlaylistDetailView,
+    SinglePageView,
+)
 
 urlpatterns = [
     path("pages/main", HomePageView.as_view(), name="home"),
