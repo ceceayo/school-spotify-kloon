@@ -1,10 +1,17 @@
-{{object.title}}
+{{ object.title }}
 <ol>
-{% for song in songs %}
-<li>
-<button onclick="audio('{{ song.version.file.url }}', '{{song.version.music.artist.name}} - {{song.version.music.title}} ({{ song.version.title }})', '{{song.version.music.pk}}', '{{song.version.music.artist.pk}}')">
-{{song}}
-</button>
-</li>
-{% endfor %}
+  <script>
+    upnext = []
+  </script>
+  {% for song in songs %}
+    <script>
+    upnext = upnext.concat([
+    "{{ song.version.file.url }}", "{{song.version.music.artist.name}} - {{song.version.music.title}} ({{ song.version.title }})", "{{song.version.music.pk}}", "{{song.version.music.artist.pk}}"
+    ]);
+    play_next();
+</script>
+    <li>
+      <button onclick="audio('{{ song.version.file.url }}', '{{ song.version.music.artist.name }} - {{ song.version.music.title }} ({{ song.version.title }})', '{{ song.version.music.pk }}', '{{ song.version.music.artist.pk }}')">{{ song }}</button>
+    </li>
+  {% endfor %}
 </ol>

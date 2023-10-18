@@ -70,21 +70,10 @@ $.ajaxSetup({
       ogg: "audio/ogg",
       wav: "audio/wav",
     };
-    var audiotypes = {
-      mp3: "audio/mpeg",
-      mp4: "audio/mp4",
-      ogg: "audio/ogg",
-      wav: "audio/wav",
-    };
+    
+    var upnext = [];
 
-    function ss_soundbits(sound) {
-      var audio_element = document.createElement("audio");
-      if (audio_element.canPlayType) {
-        var source_element = document.createElement("source");
-        source_element.setAttribute("src", sound);
-        if (sound.match(/\.(\w+)$/i))
-          source_element.setAttribute("type", audiotypes[RegExp.$1]);
-        audio_element.appendChild(source_element);
+
     function ss_soundbits(sound) {
       var audio_element = document.createElement("audio");
       if (audio_element.canPlayType) {
@@ -103,16 +92,6 @@ $.ajaxSetup({
         return audio_element;
       }
     }
-        audio_element.load();
-        audio_element.playclip = function () {
-          audio_element.pause();
-          audio_element.currentTime = 0;
-          audio_element.play();
-        };
-        return audio_element;
-      }
-    }
-
     function show_home_page() {
       $.get("/pages/main", function (data) {
         $("#page").html(data);
@@ -145,10 +124,10 @@ $.ajaxSetup({
       if (current_music) {
         $("#player-title").text(current_title);
         document.title = current_title;
-        $("#player-where").text(new Date(current_music.currentTime * 1000).toISOString().slice(14, 19) +
+        $("#player-where").text(new Date((current_music.currentTime * 1000)+1).toISOString().slice(14, 19) +
           " / " + new Date(current_music.duration * 1000).toISOString().slice(14, 19));
         if (current_music.currentTime == current_music.duration && (!music_ended)) {
-          alert("music done");
+          play_next();
           music_ended = true;
         }
 
@@ -174,6 +153,10 @@ $.ajaxSetup({
         $.post("/api/set_opinion", {"opinion": opinion, "music": current_mpk, "artist": current_apk});
 
       }
+
+    function play_next() {
+      audio(upnext.shift(), upnext.shift(), upnext.shift(), upnext.shift());
+    }
   </script>
 </body>
 
