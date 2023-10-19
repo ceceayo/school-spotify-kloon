@@ -2,7 +2,7 @@
 <ul>
 {% for song in music %}
 <li>
-    {{ song.music.title }} - {{ song.music.artist.name }}
+    <p class="text">{{ song.music.title }} - {{ song.music.artist.name }}</p>
     <ol style="list-style-type: square; padding-bottom: 0;">
         {% for item in song.tracks %}
             <li>
