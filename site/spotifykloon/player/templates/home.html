@@ -6,7 +6,7 @@
     <ol style="list-style-type: square; padding-bottom: 0;">
         {% for item in song.tracks %}
             <li>
-                <button onclick="audio('{{ item.file.url }}', '{{song.music.artist.name}} - {{song.music.title}} ({{ item.title }})', '{{song.music.pk}}', '{{song.music.artist.pk}}')"> {# TODO: make sure this plays in the background #}
+                <button onclick="audio('{{ item.file.url }}', '{{song.music.artist.name}} - {{song.music.title}} ({{ item.title }})', '{{song.music.pk}}', '{{song.music.artist.pk}}', '{{item.pk}}')"> {# TODO: make sure this plays in the background #}
                     {{ item.title }}
                 </button>
             </li>

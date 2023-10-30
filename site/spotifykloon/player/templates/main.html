@@ -20,7 +20,7 @@
       <button onclick="toggle_playing()">pause</button>
         <button onclick="set_opinion(true); alert('liked')">like</button>
         <button onclick="set_opinion(false); alert('disliked')">dislike</button>
-
+     </form>
     </span>
   </div>
 <button onclick="show_home_page()">Home</button>
@@ -61,8 +61,9 @@ $.ajaxSetup({
     var current_music = null;
     var current_title = "";
     var music_ended = false;
-      var current_mpk = "";
-      var current_apk = "";
+      var current_mpk = ""; // music pk
+      var current_apk = ""; // artist pk
+      var current_spk = ''; // song pk
 
     var audiotypes = {
       mp3: "audio/mpeg",
@@ -108,13 +109,15 @@ $.ajaxSetup({
       });
     }
 
-    function audio(link, title, mpk, apk) {
+    function audio(link, title, mpk, apk, spk) {
+      console.log(mpk, apk, spk);
       music_ended = false;
       if (current_music) {
         current_music.pause();
       }
         current_apk = apk;
         current_mpk = mpk;
+        current_spk = spk;
       current_music = ss_soundbits(link);
       current_music.playclip();
       current_title = title;
@@ -122,14 +125,16 @@ $.ajaxSetup({
     }
     function draw_controls() {
       if (current_music) {
-        $("#player-title").text(current_title);
-        document.title = current_title;
-        $("#player-where").text(new Date((current_music.currentTime * 1000)+1).toISOString().slice(14, 19) +
-          " / " + new Date(current_music.duration * 1000).toISOString().slice(14, 19));
-        if (current_music.currentTime == current_music.duration && (!music_ended)) {
+        if (current_music.ended && (!music_ended)) {
           play_next();
           music_ended = true;
+          return;
         }
+        $("#player-title").text(current_title);
+        document.title = current_title;
+        $("#player-where").text(new Date((current_music.currentTime * 1000)).toISOString().slice(14, 19) +
+          " / " + new Date(current_music.duration * 1000).toISOString().slice(14, 19));
+        
 
       } else {
         console.log("nothing");
@@ -156,6 +161,11 @@ $.ajaxSetup({
 
     function play_next() {
       audio(upnext.shift(), upnext.shift(), upnext.shift(), upnext.shift());
+    }
+
+    function add_current_to_pl(pl){
+      console.log(current_apk, current_mpk, current_spk);
+      $.post("/api/add-to-pl", {"pl": pl, "spk": current_spk})
     }
   </script>
 </body>

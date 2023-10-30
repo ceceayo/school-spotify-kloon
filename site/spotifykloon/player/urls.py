@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import HomePageView, LikeOrDislikeView, SinglePageView, MyPlaylistsView, PlaylistDetailView
+from .views import HomePageView, LikeOrDislikeView, SinglePageView, MyPlaylistsView, PlaylistDetailView, add_song_to_playlist
 
 urlpatterns = [
     path("pages/main", HomePageView.as_view(), name="home"),
@@ -8,4 +8,5 @@ urlpatterns = [
     path("pages/pl/<int:pk>", PlaylistDetailView.as_view()),
     path("", SinglePageView.as_view(), name="main"),
     path("api/set_opinion", LikeOrDislikeView, name="set_opinion"),
+    path("api/add-to-pl", add_song_to_playlist),
 ]
