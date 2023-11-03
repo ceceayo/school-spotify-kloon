@@ -36,7 +36,7 @@
   <div class="w3-sidebar w3-bar-block w3-black sb" style="width:15%; top: 0;">
   
     <button onclick="show_home_page()" class="w3-bar-item w3-button verryactive sb" style="font-family:Cooper Black">Home</button>
-    <a href="#" class="w3-bar-item w3-button megaactive sb" style="font-family:Cooper Black"> Music </a>
+    <button onclick="show_pl_page()" class="w3-bar-item w3-button megaactive sb" style="font-family:Cooper Black">Playlists</button>
     <a href="#" class="w3-bar-item w3-button active sb" style="font-family:Cooper Black">Search</a>
      <div class="w3-display-bottomleft"  style="color: blue;">
      <img src="/static/verblogo.png" style="  height: 200%;
@@ -54,21 +54,21 @@
   
   
   <div id="player" class="center topbar">
-    <span id="player-title"></span>
-    <span id="player-where"></span>
     <span id="controls">
-      
         <button onclick="set_opinion(false); alert('disliked')" id="dislikebutton"><img src="/static/dislike.png" width="64px"></img></button>
         <button onclick="toggle_playing()" id="pausebutton" height="64px"><img src="/static/pause.png" width="64px"></img></button>
         <button onclick="set_opinion(true); alert('liked')" id="likebutton"><img src="/static/like.png" width="64px"></img></button>
 
     </span>
   </div>
-<button onclick="show_home_page()">Home</button>
-<button onclick="show_pl_page()">Playlists</button>
 
   <div id="page" class="center"></div>
-  
+  <div id="player-title-wrap">
+    <marquee scrollamount="2" behavior="alternate">
+  <span id="player-title" style="color:white;text-shadow: -1px -1.5px 1px #f502e1;"></span>
+    </marquee>
+  </div>
+  <span id="player-where" style="color:white;text-shadow: -1px -1.5px 1px #f502e1;"></span>
   </body>
   <head>
   <style>
@@ -107,8 +107,7 @@
   .megaactive {
   
     background-color: #f502e1; border-radius: 4px;
-    width: auto !important;
-  
+    width: calc(100% - 12px) !important;
     margin: 6px;
   
   }
@@ -125,7 +124,7 @@
   .active {
   
     background-color: #3884ff; border-radius: 4px;
-    width: auto !important;
+    width: calc(100% - 12px) !important;
     margin: 6px;
   
    
@@ -206,7 +205,22 @@
 }
 
 #page{
-  margin-top:32px;
+  margin-top:67px;
+}
+
+#player-title-wrap{
+  position: absolute;
+  left: 15%;
+  right: calc(50% + 48px );
+  top: 20px;
+  bottom: calc(100% - 67px);
+}
+#player-where{
+  position: absolute;
+  left: calc(50% + 192px );
+  right: 0;
+  top: 20px;
+  bottom: calc(100% - 67px);
 }
   </style>
   </head>
