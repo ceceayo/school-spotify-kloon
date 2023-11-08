@@ -42,10 +42,12 @@ class Migration(migrations.Migration):
                 (
                     "music",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="player.music"),
+                        on_delete=django.db.models.deletion.CASCADE, to="player.music"
+                    ),
                 ),
             ],
         ),
-        migrations.DeleteModel(name="MusicTrackModel", ),
+        migrations.DeleteModel(
+            name="MusicTrackModel",
+        ),
     ]
