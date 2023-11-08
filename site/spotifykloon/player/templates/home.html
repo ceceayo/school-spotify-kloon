@@ -3,7 +3,7 @@
 {% for song in music %}
 <li class="song">
     <p class="text">{{ song.music.title }} - {{ song.music.artist.name }}</p>
-    <ol style="list-style-type: square; padding-bottom: 0; column-count: 1;">
+    <ol style="list-style-type: none; padding: 0 2px; column-count: 1;">
         {% for item in song.tracks %}
             <li>
                 <button class="songbutton" onclick="audio('{{ item.file.url }}', '{{song.music.artist.name}} - {{song.music.title}} ({{ item.title }})', '{{song.music.pk}}', '{{song.music.artist.pk}}')">
