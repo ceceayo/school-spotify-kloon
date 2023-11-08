@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import DetailView, ListView, TemplateView
 
 from .models import Artist, Music, MusicTrack, OpinionOnSong, Playlist, PlaylistItem
 
@@ -29,7 +29,7 @@ class HomePageView(LoginRequiredMixin, TemplateView):
             artist = Artist.objects.filter(id=item.artist_id).first()
             result.append(MusicItem(item, tracks, artist))
         context["music"] = result
-        context["filler"] =range( 3 - (len(music) % 3))
+        context["filler"] = range(3 - (len(music) % 3))
         return context
 
 
@@ -95,11 +95,12 @@ class MyPlaylistsView(ListView):
         queryset = queryset.filter(user=self.request.user)
         return queryset
 
+
 class PlaylistDetailView(DetailView):
     model = Playlist
     template_name = "playlist-info.html"
-    
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         ctx = super().get_context_data(**kwargs)
-        ctx['songs'] = PlaylistItem.objects.filter(pl=ctx['object']).all()
+        ctx["songs"] = PlaylistItem.objects.filter(pl=ctx["object"]).all()
         return ctx
