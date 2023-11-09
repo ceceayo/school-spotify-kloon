@@ -1,8 +1,8 @@
-{{object.title}}
-<ol>
+<h3>{{object.title}}</h3>
+<ol style="list-style-type: none; padding: 0; margin: 0;">
 {% for song in songs %}
 <li>
-<button onclick="audio('{{ song.version.file.url }}', '{{song.version.music.artist.name}} - {{song.version.music.title}} ({{ song.version.title }})', '{{song.version.music.pk}}', '{{song.version.music.artist.pk}}')">
+<button class="playlistI" onclick="audio('{{ song.version.file.url }}', '{{song.version.music.artist.name}} - {{song.version.music.title}} ({{ song.version.title }})', '{{song.version.music.pk}}', '{{song.version.music.artist.pk}}')">
 {{song}}
 </button>
 </li>
