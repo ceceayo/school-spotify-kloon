@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import DetailView, ListView, TemplateView
 
 from .models import Artist, Music, MusicTrack, OpinionOnSong, Playlist, PlaylistItem
 
@@ -34,12 +34,12 @@ class HomePageView(LoginRequiredMixin, TemplateView):
 
 class SinglePageView(LoginRequiredMixin, TemplateView):
     template_name = "main.html"
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        ctx= super().get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         ctx["playlists"] = Playlist.objects.all()
-        
+
         return ctx
-        
 
 
 @login_required
@@ -100,14 +100,16 @@ class MyPlaylistsView(ListView):
         queryset = queryset.filter(user=self.request.user)
         return queryset
 
+
 class PlaylistDetailView(DetailView):
     model = Playlist
     template_name = "playlist-info.html"
-    
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         ctx = super().get_context_data(**kwargs)
-        ctx['songs'] = PlaylistItem.objects.filter(pl=ctx['object']).all()
+        ctx["songs"] = PlaylistItem.objects.filter(pl=ctx["object"]).all()
         return ctx
+
 
 @login_required
 @require_http_methods(["POST"])
@@ -116,8 +118,13 @@ def add_song_to_playlist(request):
     assert "spk" in request.POST.keys()
     assert Playlist.objects.get(pk=int(request.POST["pl"])).user == request.user
     print(request.POST)
-    print(Playlist.objects.get(pk=int(request.POST["pl"])), MusicTrack.objects.get(pk=int(request.POST["spk"])))
-    x = PlaylistItem(pl=Playlist.objects.get(pk=int(request.POST["pl"])), version=MusicTrack.objects.get(pk=int(request.POST["spk"])))
+    print(
+        Playlist.objects.get(pk=int(request.POST["pl"])),
+        MusicTrack.objects.get(pk=int(request.POST["spk"])),
+    )
+    x = PlaylistItem(
+        pl=Playlist.objects.get(pk=int(request.POST["pl"])),
+        version=MusicTrack.objects.get(pk=int(request.POST["spk"])),
+    )
     x.save()
     return HttpResponse("done =w=")
-    
