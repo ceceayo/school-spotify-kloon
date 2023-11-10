@@ -1,9 +1,8 @@
-<h1 style="color:white;text-shadow: -1px -1.5px 1px #f502e1;">hallo</h1>
 <ul style="column-count: 3; column-gap: 2px;" class="song">
 {% for song in music %}
-<li class="song">
+<li class="song" style="overflow-y: scroll;">
     <p class="text">{{ song.music.title }} - {{ song.music.artist.name }}</p>
-    <ol style="list-style-type: square; padding-bottom: 0; column-count: 1;">
+    <ol style="list-style-type: none; padding: 0 2px;">
         {% for item in song.tracks %}
             <li>
                 <button class="songbutton" onclick="audio('{{ item.file.url }}', '{{song.music.artist.name}} - {{song.music.title}} ({{ item.title }})', '{{song.music.pk}}', '{{song.music.artist.pk}}')">
