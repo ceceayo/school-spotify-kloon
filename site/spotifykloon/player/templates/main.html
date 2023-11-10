@@ -1,6 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 
+  <head>
+  <style>
+  body {
+  
+  
+  #bgVideo{
+   width: 87.5vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 12.5%;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  
+  }
+  </style>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <body>
+    <video autoplay="true" loop="true" muted="true" id="bgVideo">
+      <source src="/static/video.mp4" type="video/mp4">
+  
+    </video>
+  
+  
+  
+  
+  
+  
+  
+  <div class="w3-sidebar w3-bar-block w3-black sb" style="width:15%; top: 0;">
+  
+    <button onclick="show_home_page()" class="w3-bar-item w3-button verryactive sb" style="font-family:Cooper Black">Home</button>
+    <button onclick="show_pl_page()" class="w3-bar-item w3-button megaactive sb" style="font-family:Cooper Black">Playlists</button>
+     <div class="w3-display-bottomleft"  style="color: blue;">
+     <img src="/static/verblogo.png" style="  height: 200%;
+    width: 200%;" />
+  
+     </div>
+  
+  
+  </div>
+  
+  
+  <ul>
+    <li style="float:right; height: 68px;"></li>
+  </ul>
+  
+  
+  <div id="player" class="center topbar">
+    <span id="controls">
+        <button onclick="set_opinion(false); alert('disliked')" id="dislikebutton"><img src="/static/dislike.png" width="64px"></img></button>
+        <button onclick="toggle_playing()" id="pausebutton" height="64px"><img src="/static/pause.png" width="64px"></img></button>
+        <button onclick="set_opinion(true); alert('liked')" id="likebutton"><img src="/static/like.png" width="64px"></img></button>
+
+    </span>
+  </div>
+
+  <div id="page" class="center"></div>
+  <div id="player-title-wrap">
+    <marquee scrollamount="2" behavior="alternate">
+  <span id="player-title" style="color:white;text-shadow: -1px -1.5px 1px #f502e1;"></span>
+    </marquee>
+  </div>
+  <span id="player-where" style="color:white;text-shadow: -1px -1.5px 1px #f502e1;"></span>
+  </body>
+  <head>
+  <style>
+  ul.sb {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0a0a0a;
+  }
+  
+  li.a.sb {
+    float: left;
+  }
+  
+  li.a.sb a.a.sb {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 30px 30px;
+    text-decoration: none;
+    }
+  
+    li.a.sb button.sb {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 30px 30px;
+      text-decoration: none;
+      }
+    
+    button.sb{
+      width: 100%;
+    }
+
+  .megaactive {
+  
+    background-color: #f502e1; border-radius: 4px;
+    width: calc(100% - 12px) !important;
+    margin: 6px;
+  
+  }
+  
+  .verryactive {
+  
+    background-color: #c802f5; border-radius: 4px;
+    width: calc(100% - 12px) !important;
+    margin: 6px;
+  
+  }
+  
+  
+  .active {
+  
+    background-color: #3884ff; border-radius: 4px;
+    width: calc(100% - 12px) !important;
+    margin: 6px;
+  
+   
+  }
+   
+  .link {
+    background-color: #222; margin: 4px; margin-right: -6px; border-radius: 4px;
+  }
+  .center{
+    position: relative;
+    left: 15%;
+    right: 0;
+    background-color: none;
+  
+  
+  }
+  .w3-display-bottomleft{
+  
+    margin-right: 120px; 
+  }
+  
+  .bottom_left {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  .text{
+    color: white;
+    text-shadow: -1px -1.5px 1px #f502e1;
+    text-align: center;
+  }
+
+  .topbar{
+    background-color: black;
+    position: absolute;
+    left: 15%;
+    right: 0;
+    top: 0;
+    height: 67px;
+  }
+
+  #likebutton{
+    position: relative;
+    left: 37.5%;
+    background-color: #0a0a0a;
+    border: none;
+  }
+  #likebutton:hover{
+    background-color:#222;
+  }
+  #likebutton:active{
+    background-color:#0a0a0a;
+  }
+#pausebutton{
+  position: relative;
+  left: 37.5%;
+  background-color: #0a0a0a;
+  border: none;
+}
+#pausebutton:hover{
+  background-color:#222;
+}
+#pausebutton:active{
+  background-color:#0a0a0a;
+}
+
+#dislikebutton{
+  position: relative;
+  left: 37.5%;
+  background-color: #0a0a0a;
+  border: none;
+}
+#dislikebutton:hover{
+  background-color:#222;
+}
+#dislikebutton:active{
+  background-color:#0a0a0a;
+}
+
+.songbutton{
+  color: #fff;
+  text-shadow:#0a0a0a -1px 1px 1px;
+  background-color:#c802f5;
+  border-radius: 4px;
+  border:#333 2px solid;
+  width: 100%;
+}
+.playlistL{
+  color: #fff;
+  text-shadow:#0a0a0a -1px 1px 1px;
+  background-color:#c802f5;
+  border-radius: 4px;
+  border:#333 2px solid;
+  width: 100%;
+}
+.playlistI{
+  color: #fff;
+  text-shadow:#0a0a0a -1px 1px 1px;
+  background-color:#c802f5;
+  border-radius: 4px;
+  border:#333 2px solid;
+  width: 85%;
+}
+
+h3{
+  color:white;
+  text-shadow: -1px -1.5px 1px #f502e1;
+}
+ul.song{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 85%;
+  height: fit-content;
+  column-break-inside:avoid;
+  column-span: none;
+  column-gap: 0;
+  column-rule-width: 0;
+  
+
+}
+li.song{
+  height: 200px;
+  border: 2px solid #222;
+  margin: 0px 4px 8px 4px;
+  background-color: #0006;
+  border-radius: 12px;
+
+  column-span: none;
+  column-break-inside:avoid;
+}
+
+#page{
+  margin-top:67px;
+}
+
+#player-title-wrap{
+  position: absolute;
+  left: 15%;
+  right: calc(50% + 48px );
+  top: 20px;
+  bottom: calc(100% - 67px);
+}
+#player-where{
+  position: absolute;
+  left: calc(50% + 192px );
+  right: 0;
+  top: 20px;
+  bottom: calc(100% - 67px);
+}
+  </style>
+  </head>
+  <body>
+  </div>
+  
+  </body>
+  <style >
+    div.a {
+    text-align: center;
+    font-size: 600%;
+  }
+  </style>
+</head>
+<body>
+</div>
+
+</body>
+<style >
+  div.a {
+  text-align: center;
+  font-size: 600%;
+}
+</style>
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hello!</title>
@@ -13,21 +311,7 @@
 </head>
 
 <body>
-  <div id="player">
-    <span id="player-title"></span>
-    <span id="player-where"></span>
-    <span id="controls">
-      <button onclick="toggle_playing()">pause</button>
-        <button onclick="set_opinion(true); alert('liked')">like</button>
-        <button onclick="set_opinion(false); alert('disliked')">dislike</button>
-        <button onclick="play_next();">next</button>
-     </form>
-    </span>
-  </div>
-<button onclick="show_home_page()">Home</button>
-<button onclick="show_pl_page()">Playlists</button>
-
-  <div id="page"></div>
+  
 
   <script src="//code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
   <script>

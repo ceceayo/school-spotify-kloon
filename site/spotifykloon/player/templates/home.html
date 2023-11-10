@@ -1,17 +1,20 @@
-<h1>hallo</h1>
-<ul>
+<ul style="column-count: 3; column-gap: 2px;" class="song">
 {% for song in music %}
-<li>
-    {{ song.music.title }} - {{ song.music.artist.name }}
-    <ol style="list-style-type: square; padding-bottom: 0;">
+<li class="song" style="overflow-y: scroll;">
+    <p class="text">{{ song.music.title }} - {{ song.music.artist.name }}</p>
+    <ol style="list-style-type: none; padding: 0 2px;">
         {% for item in song.tracks %}
             <li>
-                <button onclick="audio('{{ item.file.url }}', '{{song.music.artist.name}} - {{song.music.title}} ({{ item.title }})', '{{song.music.pk}}', '{{song.music.artist.pk}}', '{{item.pk}}')"> {# TODO: make sure this plays in the background #}
+                <button class="songbutton" onclick="audio('{{ item.file.url }}', '{{song.music.artist.name}} - {{song.music.title}} ({{ item.title }})', '{{song.music.pk}}', '{{song.music.artist.pk}}', '{{item.pk}}')">
                     {{ item.title }}
                 </button>
             </li>
         {% endfor %}
     </ol>
+</li>
+{% endfor %}
+{% for _ in filler %}
+<li class="song">
 </li>
 {% endfor %}
 </ul>

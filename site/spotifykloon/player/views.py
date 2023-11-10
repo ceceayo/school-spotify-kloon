@@ -29,6 +29,7 @@ class HomePageView(LoginRequiredMixin, TemplateView):
             artist = Artist.objects.filter(id=item.artist_id).first()
             result.append(MusicItem(item, tracks, artist))
         context["music"] = result
+        context["filler"] = range(3 - (len(music) % 3))
         return context
 
 
