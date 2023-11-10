@@ -36,6 +36,12 @@ class HomePageView(LoginRequiredMixin, TemplateView):
 class SinglePageView(LoginRequiredMixin, TemplateView):
     template_name = "main.html"
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ctx = super().get_context_data(**kwargs)
+        ctx["playlists"] = Playlist.objects.all()
+
+        return ctx
+
 
 @login_required
 @require_http_methods(["POST"])
@@ -104,3 +110,22 @@ class PlaylistDetailView(DetailView):
         ctx = super().get_context_data(**kwargs)
         ctx["songs"] = PlaylistItem.objects.filter(pl=ctx["object"]).all()
         return ctx
+
+
+@login_required
+@require_http_methods(["POST"])
+def add_song_to_playlist(request):
+    assert "pl" in request.POST.keys()
+    assert "spk" in request.POST.keys()
+    assert Playlist.objects.get(pk=int(request.POST["pl"])).user == request.user
+    print(request.POST)
+    print(
+        Playlist.objects.get(pk=int(request.POST["pl"])),
+        MusicTrack.objects.get(pk=int(request.POST["spk"])),
+    )
+    x = PlaylistItem(
+        pl=Playlist.objects.get(pk=int(request.POST["pl"])),
+        version=MusicTrack.objects.get(pk=int(request.POST["spk"])),
+    )
+    x.save()
+    return HttpResponse("done =w=")
