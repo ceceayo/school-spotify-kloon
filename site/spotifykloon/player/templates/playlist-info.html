@@ -1,5 +1,5 @@
-{{ object.title }}
-<ol>
+<p class="playlistIT">{{ object.title }}</p>
+<ol style="padding: 0; margin: 0; list-style-type: none;">
   <script>
     var playlist = [];
   </script>
@@ -10,9 +10,9 @@
     ]);
 </script>
     <li>
-      <button onclick="audio('{{ song.version.file.url }}', '{{ song.version.music.artist.name }} - {{ song.version.music.title }} ({{ song.version.title }})', '{{ song.version.music.pk }}', '{{ song.version.music.artist.pk }}', {{song.version.pk}})">{{ song }}</button>
+      <button class="playlistIBO" onclick="audio('{{ song.version.file.url }}', '{{ song.version.music.artist.name }} - {{ song.version.music.title }} ({{ song.version.title }})', '{{ song.version.music.pk }}', '{{ song.version.music.artist.pk }}', {{song.version.pk}})">{{ song }}</button>
     </li>
   {% endfor %}
 </ol>
-<button onclick="upnext = playlist; play_next();">play</button>
-<button onclick="add_current_to_pl({{object.pk}}); show_pl({{object.pk}});">add current song</button>
+<button class="playlistIB" onclick="upnext = playlist; play_next();">play</button>
+<button class="playlistIB" onclick="add_current_to_pl({{object.pk}}); show_pl({{object.pk}});">add current song</button>
